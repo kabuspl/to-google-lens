@@ -1,0 +1,19 @@
+{
+
+    "manifest_version": 2,
+    "name": "To Google Lens",
+    "version": "1.0",
+    "permissions": ["menus", "activeTab", "<all_urls>", "downloads"],
+
+    "description": "Take a screenshot of a webpage and search on Google Lens.",
+
+    "icons": {
+        "32": "32.png",
+        "128": "128.png"
+    },
+
+    "background": {
+        "scripts": ["bg.js"]
+    }
+
+}

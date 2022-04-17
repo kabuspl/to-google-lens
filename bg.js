@@ -24,7 +24,6 @@ browser.runtime.onMessage.addListener(msg => {
             canvas.width = msg.x2 - msg.x1;
             canvas.height = msg.y2 - msg.y1;
             ctx.drawImage(imgEl, 0 - msg.x1, 0 - msg.y1);
-            console.log(canvas.toDataURL());
             canvas.toBlob(blob => {
                 search(blob);
             })

@@ -2,18 +2,11 @@ let canvas = document.createElement("canvas");
 let ctx = canvas.getContext("2d");
 
 function run() {
-    let icon = "lightmode.png";
-    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        icon = "darkmode.png";
-    }
     browser.menus.create({
         id: "lens",
         type: "normal",
         title: "Google Lens",
-        contexts: ["all"],
-        icons: {
-            "32": icon
-        }
+        contexts: ["all"]
     });
 
     browser.menus.onClicked.addListener(e => {

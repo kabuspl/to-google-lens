@@ -5,7 +5,7 @@ function run() {
     browser.menus.create({
         id: "lens",
         type: "normal",
-        title: "Google Lens",
+        title: "To Google Lens",
         contexts: ["all"]
     });
 

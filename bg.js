@@ -6,14 +6,13 @@ function run() {
         id: "lens",
         type: "normal",
         title: "To Google Lens",
-        contexts: ["all"]
+        contexts: ["all"],
+        onclick: e => {
+            browser.tabs.executeScript({
+                file: "/content.js"
+            });
+        }
     });
-
-    browser.menus.onClicked.addListener(e => {
-        browser.tabs.executeScript({
-            file: "/content.js"
-        });
-    })
 }
 
 browser.runtime.onMessage.addListener(msg => {

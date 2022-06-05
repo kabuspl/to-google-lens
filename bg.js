@@ -3,10 +3,10 @@ let ctx = canvas.getContext("2d");
 
 function run() {
     browser.menus.create({
-        id: "lens",
+        id: "lens-screenshot",
         type: "normal",
-        title: "To Google Lens",
-        contexts: ["all"],
+        title: "Google Lens - Screenshot",
+        contexts: ["audio", "editable", "frame", "link", "page", "password", "selection", "video"],
         onclick: e => {
             browser.tabs.executeScript({
                 file: "/content.js"

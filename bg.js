@@ -18,22 +18,27 @@ function run() {
 
 browser.runtime.onMessage.addListener(msg => {
     browser.tabs.captureVisibleTab().then(img => {
-        let imgEl = new Image();
-        imgEl.src = img;
-        imgEl.onload = () => {
-            canvas.width = msg.x2 - msg.x1;
-            canvas.height = msg.y2 - msg.y1;
-            ctx.drawImage(imgEl, 0 - msg.x1, 0 - msg.y1);
-            canvas.toBlob(blob => {
-                search(blob);
-            })
-        }
+        searchBlob (img, msg);
     }, e => {
         console.error(e);
     });
 });
 
 run();
+
+function searchBlob (img, msg) {
+    let imgEl = new Image();
+        imgEl.src = img;
+
+    imgEl.onload = () => {
+        canvas.width = msg.x2 - msg.x1;
+        canvas.height = msg.y2 - msg.y1;
+        ctx.drawImage(imgEl, 0 - msg.x1, 0 - msg.y1);
+        canvas.toBlob(blob => {
+            search(blob);
+        });
+    }
+}
 
 async function search(image) {
     let data = new FormData();

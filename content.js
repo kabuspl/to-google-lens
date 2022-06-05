@@ -1,5 +1,5 @@
 cont = document.createElement("div");
-cont.style.zIndex = "99999";
+cont.style.zIndex = "1000001";
 cont.style.position = "fixed";
 cont.style.top = "0";
 cont.style.left = "0";
@@ -10,7 +10,7 @@ cont.style.mixBlendMode = "hard-light";
 cont.style.cursor = "crosshair";
 
 selector = document.createElement("div");
-selector.style.zIndex = "999999";
+selector.style.zIndex = "1000002";
 selector.style.position = "fixed";
 selector.style.top = "0";
 selector.style.left = "0";

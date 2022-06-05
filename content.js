@@ -69,7 +69,14 @@ cont.addEventListener("mouseup", e => {
     browser.runtime.sendMessage({ x1: x1, y1: y1, x2: x2, y2: y2 });
     selector.remove();
     cont.remove();
-})
+});
+
+window.addEventListener ('keyup', e => {
+    if (e.keyCode === 27) {
+        selector.remove();
+        cont.remove();
+    }
+}, false);
 
 document.body.appendChild(cont);
 

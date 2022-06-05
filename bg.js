@@ -28,7 +28,6 @@ run();
 
 function searchBlob (img, msg) {
     let imgEl = new Image();
-        imgEl.src = img;
 
     imgEl.onload = () => {
         canvas.width = msg.x2 - msg.x1;
@@ -38,6 +37,8 @@ function searchBlob (img, msg) {
             search(blob);
         });
     }
+
+    imgEl.src = img;
 }
 
 async function search(image) {

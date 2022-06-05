@@ -13,6 +13,16 @@ function run() {
             });
         }
     });
+
+    browser.menus.create({
+        id: "lens-image",
+        type: "normal",
+        title: "Google Lens - Image",
+        contexts: ["image"],
+        onclick: e => {
+            searchBlob (e.srcUrl);
+        }
+    });
 }
 
 browser.runtime.onMessage.addListener(msg => {
@@ -27,11 +37,26 @@ run();
 
 function searchBlob (img, msg) {
     let imgEl = new Image();
+    let width, height
+
+    let x = 0,
+        y = 0;
 
     imgEl.onload = () => {
-        canvas.width = msg.x2 - msg.x1;
-        canvas.height = msg.y2 - msg.y1;
-        ctx.drawImage(imgEl, 0 - msg.x1, 0 - msg.y1);
+        if (msg) {
+            width = msg.x2 - msg.x1;
+            height = msg.y2 - msg.y1;
+            x -= msg.x1;
+            y -= msg.y1;
+        } else {
+            width = imgEl.naturalWidth;
+            height = imgEl.naturalHeight;
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+        ctx.drawImage(imgEl, x, y);
+
         canvas.toBlob(blob => {
             search(blob);
         });

@@ -3,37 +3,67 @@ let ctx = canvas.getContext("2d");
 
 function run() {
     browser.menus.create({
-        id: "lens",
+        id: "lens-screenshot",
         type: "normal",
-        title: "To Google Lens",
-        contexts: ["all"]
+        title: "Google Lens - Screenshot",
+        contexts: ["audio", "editable", "frame", "link", "page", "password", "selection", "video"],
+        onclick: e => {
+            browser.tabs.executeScript({
+                file: "/content.js"
+            });
+        }
     });
 
-    browser.menus.onClicked.addListener(e => {
-        browser.tabs.executeScript({
-            file: "/content.js"
-        });
-    })
+    browser.menus.create({
+        id: "lens-image",
+        type: "normal",
+        title: "Google Lens - Image",
+        contexts: ["image"],
+        onclick: e => {
+            searchBlob (e.srcUrl);
+        }
+    });
 }
 
 browser.runtime.onMessage.addListener(msg => {
     browser.tabs.captureVisibleTab().then(img => {
-        let imgEl = new Image();
-        imgEl.src = img;
-        imgEl.onload = () => {
-            canvas.width = msg.x2 - msg.x1;
-            canvas.height = msg.y2 - msg.y1;
-            ctx.drawImage(imgEl, 0 - msg.x1, 0 - msg.y1);
-            canvas.toBlob(blob => {
-                search(blob);
-            })
-        }
+        searchBlob (img, msg);
     }, e => {
         console.error(e);
     });
 });
 
 run();
+
+function searchBlob (img, msg) {
+    let imgEl = new Image();
+    let width, height
+
+    let x = 0,
+        y = 0;
+
+    imgEl.onload = () => {
+        if (msg) {
+            width = msg.x2 - msg.x1;
+            height = msg.y2 - msg.y1;
+            x -= msg.x1;
+            y -= msg.y1;
+        } else {
+            width = imgEl.naturalWidth;
+            height = imgEl.naturalHeight;
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+        ctx.drawImage(imgEl, x, y);
+
+        canvas.toBlob(blob => {
+            search(blob);
+        });
+    }
+
+    imgEl.src = img;
+}
 
 async function search(image) {
     let data = new FormData();

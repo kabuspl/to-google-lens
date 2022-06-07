@@ -66,7 +66,7 @@ cont.addEventListener("mouseup", e => {
         y1 = startY;
         y2 = e.clientY;
     }
-    browser.runtime.sendMessage({ x1: x1, y1: y1, x2: x2, y2: y2 });
+    browser.runtime.sendMessage({ x1: x1 * window.devicePixelRatio, y1: y1 * window.devicePixelRatio, x2: x2 * window.devicePixelRatio, y2: y2 * window.devicePixelRatio });
     selector.remove();
     cont.remove();
 });

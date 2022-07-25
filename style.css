@@ -1,0 +1,72 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    color-scheme: light;
+    width: 100%;
+    height: 100%;
+    font-family: "Segoe UI Variable", "Segoe UI", "Noto Sans", sans-serif;
+    font-size: 17px;
+}
+
+.loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 200px;
+}
+
+.bottom {
+    padding: 20px;
+    text-align: center;
+}
+
+.spinner {
+    animation: rotator 1.4s linear infinite;
+    position: relative;
+    left: calc(50% - 32.5px);
+}
+
+@keyframes rotator {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(270deg);
+    }
+}
+
+.path {
+    stroke-dasharray: 187;
+    stroke-dashoffset: 0;
+    transform-origin: center;
+    animation: dash 1.4s ease-in-out infinite;
+    stroke: #000;
+}
+
+@keyframes dash {
+    0% {
+        stroke-dashoffset: 187;
+    }
+
+    50% {
+        stroke-dashoffset: 46.75;
+        transform: rotate(135deg);
+    }
+
+    100% {
+        stroke-dashoffset: 187;
+        transform: rotate(450deg);
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    html {
+        color-scheme: dark;
+    }
+    .path {
+        stroke: #fff;
+    }
+}

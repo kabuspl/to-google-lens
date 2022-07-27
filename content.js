@@ -72,7 +72,7 @@ cont.addEventListener("mouseup", e => {
 });
 
 window.addEventListener ('keyup', e => {
-    if (e.keyCode === 27) {
+    if (e.code === "Escape") {
         selector.remove();
         cont.remove();
     }

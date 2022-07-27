@@ -7,5 +7,5 @@
 
 ## Download
 
-[![addons.mozilla.org](amo-btn.png)](https://addons.mozilla.org/pl/firefox/addon/youtube-media-buttons-fix/)
+[![addons.mozilla.org](amo-btn.png)](https://addons.mozilla.org/pl/firefox/addon/to-google-lens/)
 [![GitHub](get-it-on-github.png)](https://github.com/kabuspl/to-google-lens/releases)

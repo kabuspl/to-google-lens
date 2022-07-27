@@ -57,12 +57,29 @@ function searchBlob (img, msg) {
         canvas.height = height;
         ctx.drawImage(imgEl, x, y);
 
-        canvas.toBlob(blob => {
-            search(blob);
+        canvas.toBlob(async blob => {
+            if(blob.size>20000000) {
+                search(await compress(canvas,ctx,imgEl,x,y));
+            }else{
+                search(blob);
+            }
         });
     }
 
     imgEl.src = img;
+}
+
+async function compress(canvas, ctx, img, x, y) {
+    canvas.width=canvas.width/2;
+    canvas.height=canvas.height/2;
+    ctx.drawImage(img,x,y,canvas.width,canvas.height);
+    const blob = await new Promise(resolve => canvas.toBlob(resolve));
+    console.log(blob);
+    if(blob.size>20000000) {
+        return await compress(canvas,ctx,img,x,y);
+    }else{
+        return blob;
+    }
 }
 
 function search(image) {

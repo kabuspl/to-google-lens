@@ -41,21 +41,20 @@ cont.addEventListener("touchstart", e => {
 });
 
 function moveSelection(x,y) {
-    if (down) {
-        if (x - startX < 0) {
-            selector.style.left = x + "px";
-            selector.style.width = (startX - x) + "px";
-        } else {
-            selector.style.left = startX + "px";
-            selector.style.width = (x - startX) + "px";
-        }
-        if (y - startY < 0) {
-            selector.style.top = y + "px";
-            selector.style.height = (startY - y) + "px";
-        } else {
-            selector.style.top = startY + "px";
-            selector.style.height = (y - startY) + "px";
-        }
+    if (!down) return;
+    if (x - startX < 0) {
+        selector.style.left = x + "px";
+        selector.style.width = (startX - x) + "px";
+    } else {
+        selector.style.left = startX + "px";
+        selector.style.width = (x - startX) + "px";
+    }
+    if (y - startY < 0) {
+        selector.style.top = y + "px";
+        selector.style.height = (startY - y) + "px";
+    } else {
+        selector.style.top = startY + "px";
+        selector.style.height = (y - startY) + "px";
     }
 }
 

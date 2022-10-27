@@ -93,7 +93,12 @@ function search(image) {
                 method: 'POST',
                 body: data
             });
-            let response = await req.text();
+            let response = DOMPurify.sanitize(await req.text(), {
+                WHOLE_DOCUMENT: true,
+                ADD_TAGS: ["head", "meta"],
+                ADD_ATTR: ["content"]
+            });
+            console.log(response);
             browser.tabs.update(tab.id,{ url: response.match(/<meta .*URL=(https?:\/\/.*)"/)[1] });
         });
     })

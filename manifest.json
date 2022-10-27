@@ -13,7 +13,7 @@
     },
 
     "background": {
-        "scripts": ["bg.js"]
+        "scripts": ["purify.min.js", "bg.js"]
     }
 
 }

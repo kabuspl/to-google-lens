@@ -98,7 +98,6 @@ function search(image) {
                 ADD_TAGS: ["head", "meta"],
                 ADD_ATTR: ["content"]
             });
-            console.log(response);
             browser.tabs.update(tab.id,{ url: response.match(/<meta .*URL=(https?:\/\/.*)"/)[1] });
         });
     })

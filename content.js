@@ -70,7 +70,7 @@ cont.addEventListener("touchmove", e => {
 function stopSelection(x,y) {
     down = false;
     let x1, y1, x2, y2;
-    if (y - startX < 0) {
+    if (x - startX < 0) {
         x1 = x;
         x2 = startX;
     } else {

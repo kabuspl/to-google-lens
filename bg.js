@@ -44,8 +44,8 @@ function searchBlob (img, msg) {
 
     imgEl.onload = () => {
         if (msg) {
-            width = msg.x2 - msg.x1;
-            height = msg.y2 - msg.y1;
+            width = Math.abs(msg.x2 - msg.x1);
+            height = Math.abs(msg.y2 - msg.y1);
             x -= msg.x1;
             y -= msg.y1;
         } else {

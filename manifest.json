@@ -16,6 +16,10 @@
         "scripts": ["purify.min.js", "bg.js"]
     },
 
+    "host_permissions": [
+        "<all_urls>"
+    ],
+
     "content_security_policy": {
         "extension_pages": "script-src 'self'; media-src *"
     }

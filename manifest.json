@@ -1,9 +1,9 @@
 {
 
-    "manifest_version": 2,
+    "manifest_version": 3,
     "name": "To Google Lens",
     "version": "2.5",
-    "permissions": ["menus", "activeTab", "<all_urls>"],
+    "permissions": ["menus", "activeTab", "scripting", "tabs"],
 
     "description": "Take a screenshot of a webpage and search on Google Lens.",
 
@@ -14,6 +14,10 @@
 
     "background": {
         "scripts": ["purify.min.js", "bg.js"]
+    },
+
+    "content_security_policy": {
+        "extension_pages": "script-src 'self'; media-src *"
     }
 
 }

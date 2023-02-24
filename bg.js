@@ -1,6 +1,15 @@
 let canvas = document.createElement("canvas");
 let ctx = canvas.getContext("2d");
 
+function requestPermission() {
+    browser.windows.create({
+        type: "normal",
+        url: "permissionRequest.html",
+        width: 700,
+        height: 400
+    });
+}
+
 function run() {
     browser.menus.create({
         id: "lens-screenshot",
@@ -16,9 +25,14 @@ function run() {
         contexts: ["image"]
     });
 
-    browser.menus.onClicked.addListener(e=>{
+    browser.menus.onClicked.addListener(async e=>{
         switch(e.menuItemId) {
             case "lens-screenshot":
+                let hasPermission = await browser.permissions.contains({ origins: ["<all_urls>"] });
+                if(!hasPermission) {
+                    requestPermission();
+                    return;
+                }
                 browser.tabs.query({active: true}).then(active=>{
                     browser.scripting.executeScript({
                         target: {

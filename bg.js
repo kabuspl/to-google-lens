@@ -43,7 +43,7 @@ function run() {
                 });
                 break;
             case "lens-image":
-                searchBlob (e.srcUrl);
+                searchURL(e.srcUrl);
                 break;
         }
     })
@@ -124,5 +124,11 @@ function search(image) {
             });
             browser.tabs.update(tab.id,{ url: response.match(/<meta .*URL=(https?:\/\/.*)"/)[1] });
         });
+    })
+}
+
+function searchURL(imageURL) {
+    browser.tabs.query({active: true}).then(active=>{
+        browser.tabs.create({url: "https://lens.google.com/uploadbyurl?url="+encodeURIComponent(imageURL)+"&ep=ccm&s=&st=" + Date.now(), index: active[0].index+1});
     })
 }

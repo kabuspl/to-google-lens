@@ -6,23 +6,33 @@ function run() {
         id: "lens-screenshot",
         type: "normal",
         title: "Google Lens - Screenshot",
-        contexts: ["audio", "editable", "frame", "link", "page", "password", "selection", "video"],
-        onclick: e => {
-            browser.tabs.executeScript({
-                file: "/content.js"
-            });
-        }
+        contexts: ["audio", "editable", "frame", "link", "page", "password", "selection", "video"]
     });
 
     browser.menus.create({
         id: "lens-image",
         type: "normal",
         title: "Google Lens - Image",
-        contexts: ["image"],
-        onclick: e => {
-            searchBlob (e.srcUrl);
-        }
+        contexts: ["image"]
     });
+
+    browser.menus.onClicked.addListener(e=>{
+        switch(e.menuItemId) {
+            case "lens-screenshot":
+                browser.tabs.query({active: true}).then(active=>{
+                    browser.scripting.executeScript({
+                        target: {
+                            tabId: active[0].id
+                        },
+                        files: ["/content.js"]
+                    });
+                });
+                break;
+            case "lens-image":
+                searchBlob (e.srcUrl);
+                break;
+        }
+    })
 }
 
 browser.runtime.onMessage.addListener(msg => {

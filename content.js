@@ -105,6 +105,6 @@ window.addEventListener ('keyup', e => {
     }
 }, false);
 
-document.body.appendChild(cont);
+(document.fullscreenElement||document.body).appendChild(cont);
 
 undefined;

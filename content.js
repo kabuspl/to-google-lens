@@ -5,7 +5,7 @@ cont.style.top = "0";
 cont.style.left = "0";
 cont.style.width = "100%";
 cont.style.height = "100%";
-cont.style.setProperty("background", "rgba(0,0,0,.5)", "important");
+cont.style.setProperty("background", "rgba(0,0,0,.6)", "important");
 cont.style.mixBlendMode = "hard-light";
 cont.style.cursor = "crosshair";
 

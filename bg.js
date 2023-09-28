@@ -82,6 +82,12 @@ async function compress(canvas, ctx, img, x, y) {
     }
 }
 
+function decodeHTMLEntities(text) {
+    const textarea = document.createElement("textarea");
+    textarea.innerHTML = text;
+    return textarea.value;
+}
+
 function search(image) {
     browser.tabs.query({active: true}).then(active=>{
         browser.tabs.create({url: "loading.html", index: active[0].index+1}).then(async tab=>{
@@ -98,7 +104,7 @@ function search(image) {
                 ADD_TAGS: ["head", "meta"],
                 ADD_ATTR: ["content"]
             });
-            browser.tabs.update(tab.id,{ url: response.match(/<meta .*URL=(https?:\/\/.*)"/)[1] });
+            browser.tabs.update(tab.id,{ url: "https://lens.google.com" + decodeHTMLEntities(response.match(/<meta .*url=(\/search.*)"/)[1]) });
         });
     })
 }

@@ -63,7 +63,7 @@ function searchBlob (img, msg) {
             }else{
                 search(blob);
             }
-        });
+        }, "image/webp");
     }
 
     imgEl.src = img;
@@ -73,7 +73,7 @@ async function compress(canvas, ctx, img, x, y) {
     canvas.width=canvas.width/2;
     canvas.height=canvas.height/2;
     ctx.drawImage(img,x,y,canvas.width,canvas.height);
-    const blob = await new Promise(resolve => canvas.toBlob(resolve));
+    const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/webp"));
     console.log(blob);
     if(blob.size>20000000) {
         return await compress(canvas,ctx,img,x,y);

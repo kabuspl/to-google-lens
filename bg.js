@@ -91,7 +91,7 @@ function decodeHTMLEntities(text) {
 async function search(image) {
     const settings = await browser.storage.sync.get();
     browser.tabs.query({active: true}).then(active=>{
-        browser.tabs.create({url: "loading.html", index: active[0].index+1, active: !settings.openInBG}).then(async tab=>{
+        browser.tabs.create({url: "loading.html", index: active[0].index+1, active: !(settings.openInBG || false)}).then(async tab=>{
             let data = new FormData();
             data.append('encoded_image', image, "screenshot.png");
             let req = await fetch("https://lens.google.com/upload?ep=ccm&s=&st=" + Date.now(), {
@@ -116,7 +116,7 @@ async function search(image) {
             const url = req.url;
             const t_url = new URL(url, "https://lens.google.com").href
             
-            if(settings.doNotLoad) {
+            if(settings.doNotLoad || false) {
                 urlsToOpen.push({
                     tab: tab.id,
                     url: t_url

@@ -98,13 +98,25 @@ function search(image) {
                 mode: 'cors',
                 method: 'POST',
                 body: data
+            })
+            .then(res => {
+                if (res.status === 200) {
+                    return res;
+                } else {
+                    throw new Error(`${res.status} ${res.statusText}`);
+                }
+            })
+            .then(data => data)
+            .catch(e => {
+                browser.tabs.sendMessage(tab.id, { type: "google-post-error" });
+                throw e;
             });
-            let response = DOMPurify.sanitize(await req.text(), {
-                WHOLE_DOCUMENT: true,
-                ADD_TAGS: ["head", "meta"],
-                ADD_ATTR: ["content"]
-            });
-            browser.tabs.update(tab.id,{ url: "https://lens.google.com" + decodeHTMLEntities(response.match(/<meta .*url=(\/search.*)"/)[1]) });
+            
+            const url = req.url;
+            const t_url = new URL(url, "https://lens.google.com").href
+            
+            browser.tabs.update(tab.id,{ url: t_url});
+            
         });
     })
 }

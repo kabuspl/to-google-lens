@@ -116,8 +116,28 @@ async function search(image) {
             const url = req.url;
             const t_url = new URL(url, "https://lens.google.com").href
             
-            browser.tabs.update(tab.id,{ url: t_url});
+            if(settings.doNotLoad) {
+                urlsToOpen.push({
+                    tab: tab.id,
+                    url: t_url
+                });
+            } else {
+                browser.tabs.update(tab.id,{ url: t_url });
+            }
             
         });
     })
 }
+
+let urlsToOpen = [];
+
+function loadUrl(activeInfo) {
+    const filtered = urlsToOpen.filter((v,i)=> v.tab == activeInfo.tabId);
+    if(filtered.length == 1) {
+        console.log(filtered[0].tab, filtered[0].url)
+        browser.tabs.update(filtered[0].tab,{ url: filtered[0].url });
+        urlsToOpen.splice(urlsToOpen.indexOf(filtered[0]), 1);
+    }
+}
+
+browser.tabs.onActivated.addListener(loadUrl);

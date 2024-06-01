@@ -22,7 +22,7 @@
 
     "browser_specific_settings": {
         "gecko": {
-            "id": "togooglelens@kabus.ovh",
+            "id": "{364d5268-5d27-4c8f-a51d-eb3c674ff8ad}",
             "strict_min_version": "42.0"
         }
     }

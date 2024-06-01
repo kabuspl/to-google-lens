@@ -1,0 +1,10 @@
+body {
+    font-family: sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+    html {
+        color-scheme: dark;
+        background-color: #23222b;
+    }
+}

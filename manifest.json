@@ -1,9 +1,8 @@
 {
-
     "manifest_version": 2,
     "name": "To Google Lens",
-    "version": "2.7.2",
-    "permissions": ["menus", "activeTab", "<all_urls>"],
+    "version": "2.8",
+    "permissions": ["menus", "activeTab", "<all_urls>", "storage"],
 
     "description": "Take a screenshot of a webpage and search on Google Lens.",
 
@@ -14,6 +13,17 @@
 
     "background": {
         "scripts": ["purify.min.js", "bg.js"]
-    }
+    },
 
+    "options_ui": {
+        "page": "options.html",
+        "browser_style": false
+    },
+
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "togooglelens@kabus.ovh",
+            "strict_min_version": "42.0"
+        }
+    }
 }

@@ -126,16 +126,3 @@ async function search(image) {
         });
     })
 }
-
-let urlsToOpen = [];
-
-function loadUrl(activeInfo) {
-    const filtered = urlsToOpen.filter((v,i)=> v.tab == activeInfo.tabId);
-    if(filtered.length == 1) {
-        console.log(filtered[0].tab, filtered[0].url)
-        browser.tabs.update(filtered[0].tab,{ url: filtered[0].url });
-        urlsToOpen.splice(urlsToOpen.indexOf(filtered[0]), 1);
-    }
-}
-
-browser.tabs.onActivated.addListener(loadUrl);

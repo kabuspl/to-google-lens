@@ -70,3 +70,7 @@ body {
         stroke: #fff;
     }
 }
+
+input {
+    display: none;
+}

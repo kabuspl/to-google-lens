@@ -88,43 +88,41 @@ function decodeHTMLEntities(text) {
     return textarea.value;
 }
 
+// Google stopped allowing requests from origins other than their sites.
+// Fetch API doesn't allow changing Origin header so it must be changed
+// using the webRequest API.
+browser.webRequest.onBeforeSendHeaders.addListener(
+    details => {
+        let modifiedHeaders = details.requestHeaders.map((v, i, a) => {
+            if(v.name.toLowerCase() == "origin") {
+                v.value = "https://lens.google.com"
+            }
+            return v;
+        });
+        return {
+            requestHeaders: modifiedHeaders
+        }
+    },
+    {
+        urls: [
+            "*://lens.google.com/v3/upload*"
+        ]
+    },
+    [
+        "requestHeaders",
+        "blocking"
+    ]
+);
+
 async function search(image) {
     const settings = await browser.storage.sync.get();
     browser.tabs.query({active: true}).then(active=>{
         browser.tabs.create({url: "loading.html", index: active[0].index+1, active: !(settings.openInBG || false)}).then(async tab=>{
-            let data = new FormData();
-            data.append('encoded_image', image, "screenshot.png");
-            let req = await fetch("https://lens.google.com/upload?ep=ccm&s=&st=" + Date.now(), {
-                referrer: '',
-                mode: 'cors',
-                method: 'POST',
-                body: data
-            })
-            .then(res => {
-                if (res.status === 200) {
-                    return res;
-                } else {
-                    throw new Error(`${res.status} ${res.statusText}`);
+            browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+                if (changeInfo.status == "complete") {
+                    browser.tabs.sendMessage(tab.id, { url: `https://lens.google.com/v3/upload?hl=pl&re=df&stcs=${Date.now()}&vpw=1920&vph=604&ep=subb`, image: image })
                 }
-            })
-            .then(data => data)
-            .catch(e => {
-                browser.tabs.sendMessage(tab.id, { type: "google-post-error" });
-                throw e;
-            });
-            
-            const url = req.url;
-            const t_url = new URL(url, "https://lens.google.com").href
-            
-            if(settings.doNotLoad || false) {
-                urlsToOpen.push({
-                    tab: tab.id,
-                    url: t_url
-                });
-            } else {
-                browser.tabs.update(tab.id,{ url: t_url });
-            }
-            
+            }, { tabId: tab.id });
         });
     })
 }

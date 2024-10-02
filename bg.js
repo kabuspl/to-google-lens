@@ -120,7 +120,7 @@ async function search(image) {
         browser.tabs.create({url: "loading.html", index: active[0].index+1, active: !(settings.openInBG || false)}).then(async tab=>{
             browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
                 if (changeInfo.status == "complete") {
-                    browser.tabs.sendMessage(tab.id, { url: `https://lens.google.com/v3/upload?hl=pl&re=df&stcs=${Date.now()}&vpw=1920&vph=604&ep=subb`, image: image })
+                    browser.tabs.sendMessage(tab.id, { url: `https://lens.google.com/v3/upload?re=df&stcs=${Date.now()}&vpw=1920&vph=604&ep=subb`, image: image })
                 }
             }, { tabId: tab.id });
         });

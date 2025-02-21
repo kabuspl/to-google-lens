@@ -1,8 +1,9 @@
 {
-    "manifest_version": 2,
+    "manifest_version": 3,
     "name": "To Google Lens",
-    "version": "2.11",
-    "permissions": ["menus", "activeTab", "<all_urls>", "storage", "webRequest", "webRequestBlocking"],
+    "version": "2.99.0",
+    "permissions": ["contextMenus", "activeTab", "storage", "scripting"],
+    "host_permissions": ["<all_urls>"],
 
     "description": "Take a screenshot of a webpage and search on Google Lens.",
 
@@ -12,18 +13,11 @@
     },
 
     "background": {
-        "scripts": ["purify.min.js", "bg.js"]
+        "service_worker": "bg.js"
     },
 
     "options_ui": {
         "page": "options.html",
         "browser_style": false
-    },
-
-    "browser_specific_settings": {
-        "gecko": {
-            "id": "{364d5268-5d27-4c8f-a51d-eb3c674ff8ad}",
-            "strict_min_version": "58.0"
-        }
     }
 }

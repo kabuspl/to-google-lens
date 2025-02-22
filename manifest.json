@@ -16,6 +16,13 @@
         "service_worker": "bg.js"
     },
 
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": ["content.js"]
+        }
+    ],
+
     "options_ui": {
         "page": "options.html",
         "browser_style": false

@@ -1,3 +1,5 @@
+const browser = chrome;
+
 const bg_checkbox = document.querySelector("#bg_checkbox");
 const doNotLoad_checkbox = document.querySelector("#doNotLoad_checkbox");
 

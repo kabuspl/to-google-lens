@@ -1,3 +1,5 @@
+const browser = chrome;
+
 browser.runtime.onMessage.addListener(async (request) => {
     const settings = await browser.storage.sync.get();
 
@@ -10,7 +12,12 @@ browser.runtime.onMessage.addListener(async (request) => {
     fileInput.type = "file";
     fileInput.name = "encoded_image";
 
-    const file = new File([request.image], "screenshot.webp", { type: request.image.type });
+    let reconstructedArray = new Uint8Array(Object.keys(request.image).length);
+    for(let index of Object.keys(request.image)) {
+        reconstructedArray[index] = request.image[index];
+    }
+
+    const file = new File([new Blob([reconstructedArray], {type: request.imageType})], "screenshot.webp", { type: request.imageType });
 
     const dataTransfer = new DataTransfer();
     dataTransfer.items.add(file);

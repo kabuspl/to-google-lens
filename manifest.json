@@ -1,29 +1,53 @@
 {
-    "manifest_version": 2,
-    "name": "To Google Lens",
-    "version": "2.11",
-    "permissions": ["menus", "activeTab", "<all_urls>", "storage", "webRequest", "webRequestBlocking"],
+  "manifest_version": 3,
+  "name": "To Google Lens",
+  "version": "3.0",
+  "description": "Take a screenshot of a webpage and search on Google Lens instantly.",
+  
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage",
+    "tabs"
+  ],
 
-    "description": "Take a screenshot of a webpage and search on Google Lens.",
+  "host_permissions": [
+    "<all_urls>"
+  ],
 
-    "icons": {
-        "32": "32.png",
-        "128": "128.png"
-    },
+  "icons": {
+    "32": "32.png",
+    "128": "128.png"
+  },
 
-    "background": {
-        "scripts": ["purify.min.js", "bg.js"]
-    },
+  "background": {
+    "service_worker": "bg.js",
+    "type": "module"
+  },
 
-    "options_ui": {
-        "page": "options.html",
-        "browser_style": false
-    },
+  "options_ui": {
+    "page": "options.html",
+    "browser_style": false
+  },
 
-    "browser_specific_settings": {
-        "gecko": {
-            "id": "{364d5268-5d27-4c8f-a51d-eb3c674ff8ad}",
-            "strict_min_version": "58.0"
-        }
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{364d5268-5d27-4c8f-a51d-eb3c674ff8ad}",
+      "strict_min_version": "109.0"
     }
+  },
+
+  "commands": {
+    "search_google_lens": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+Y"
+      },
+      "description": "Search the current page using Google Lens"
+    }
+  },
+
+  "action": {
+    "default_title": "To Google Lens",
+    "default_icon": "32.png"
+  }
 }

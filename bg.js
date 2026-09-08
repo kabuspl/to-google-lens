@@ -116,7 +116,7 @@ browser.webRequest.onBeforeSendHeaders.addListener(
 
 async function search(image) {
     const settings = await browser.storage.sync.get();
-    browser.tabs.query({active: true}).then(active=>{
+    browser.tabs.query({active: true, currentWindow: true}).then(active=>{
         browser.tabs.create({url: "loading.html", index: active[0].index+1, active: !(settings.openInBG || false)}).then(async tab=>{
             browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
                 if (changeInfo.status == "complete") {
